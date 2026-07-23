@@ -5,9 +5,9 @@ using ParserApi.Models.Responses;
 
 namespace ParserApi.Parsers;
 
-public interface CsvContentParser : IContentParser
+public class CsvContentParser : IContentParser
 {
-    public ContentType SupportedType => ContentType.CSV;
+    public ContentType Type => ContentType.CSV;
 
     public ParseContentResponse Parse(string decodedContent)
     {
