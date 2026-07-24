@@ -5,7 +5,7 @@ Prosty endpoint HTTP w ASP.NET Core, który przyjmuje dane w formacie CSV lub JS
 
 ## Wymagania
 
-- .NET 8 SDK lub nowszy
+- .NET 10 SDK lub nowszy
 
 ## Uruchomienie lokalne
 
@@ -74,4 +74,17 @@ dotnet test
 
 ## Założenia
 
-- Pierwszy wiersz CSV jest traktowany jako nagłówek (kolumny).
+- Pierwszy wiersz danych CSV jest traktowany jako nagłówek (nazwy kolumn).
+- Payload wejściowy jest zakodowany w Base64 i musi być poprawnym tekstem UTF-8 po dekodowaniu.
+
+## Ograniczenia
+
+Obecna implementacja wczytuje cały zdekodowany payload do pamięci (`string`, `List<T>`) 
+przed rozpoczęciem parsowania. Rozwiązanie **nie jest przystosowane do bardzo dużych 
+payloadów** — duży plik zakodowany w Base64 zostałby w całości zdekodowany i zbuforowany 
+w pamięci, co przy większym obciążeniu mogłoby prowadzić do wysokiego zużycia pamięci 
+lub wyjątku `OutOfMemoryException`.
+
+W środowisku produkcyjnym, przy oczekiwaniu dużych plików, wymagane byłoby podejście 
+strumieniowe (np. dekodowanie i parsowanie danych porcjami, bez wczytywania całości 
+do pamięci naraz).
