@@ -1,6 +1,0 @@
-@Generyczny_parser_danych_przesylanych_przez_API_HostAddress = http://localhost:5132
-
-GET {{Generyczny_parser_danych_przesylanych_przez_API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
